@@ -5,7 +5,6 @@ async function async1 () {
   console.log('async1 end');
 }
 async function async2 () {
-  //async2做出如下更改：
   new Promise(function (resolve) {
     console.log('promise1');
     resolve();
@@ -22,12 +21,12 @@ setTimeout(function () {
   new Promise(function (resolve) {
     resolve();
   }).then(function () {
-    console.log('promise88'); 
+    console.log('promise88'); // 第二轮微任务1
   });
   setTimeout(function () {
     console.log('setTimeout2宏任务');
-  }, 0); // 宏1
-}, 0); // 宏1
+  }, 0); // 第二轮宏任务1
+}, 0); 
 async1();
 
 new Promise(function (resolve) {
@@ -38,3 +37,8 @@ new Promise(function (resolve) {
 });
 
 console.log('script end');
+
+// script start   async1 start  promise1   promise3  script end  promise2  async1 end   promise4 
+// setTimeout  
+// promise88
+// setTimeout2宏任务
