@@ -6,6 +6,7 @@ const set = createSetter();
 function createGetter () {
   return function get (target, key, receiver) {
     const res = Reflect.get(target, key, receiver)
+    console.log('createGetter res :>> ', res);
     console.log('响应式获取，', target[key])
     if (isObject(res)) {
       return reactive(res)
@@ -20,6 +21,7 @@ function createSetter () {
     const isKeyExist = hasOwnProperty(target, key);
     const oldValue = target[key];
     const res = Reflect.set(target, key, value, receiver)
+    console.log('createSetter res :>> ', res);
     if (!isKeyExist) {
       console.log('响应式新增', value)
     } else if (!isEqual(value, oldValue)) {
