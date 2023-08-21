@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            function myNew() {
+                const Con = Array.prototype.shift.call(arguments);
+                const newObj = Object.create(Con);
+                const result = Con.apply(newObj, arguments);
+                return result instanceof Object ? result : newObj;
+            }
+
+            function Car(color, name) {
+                this.color = color;
+                return {
+                    name
+                };
+            }
+
+            var car = myNew(Car, "black", "BMW");
+            console.log("car :>> ", car);
+
+            // const aa = [3, 2, 3];
+            // // const result = aa.push(4);
+            // const result1 = aa.shift();
+            // console.log("result1 :>> ", result1);
+            // console.log("aa :>> ", aa);
+        </script>
+    </body>
+</html>

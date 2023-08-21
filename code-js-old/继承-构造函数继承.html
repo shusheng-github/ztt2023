@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            function Animal(name) {
+                this.name = name;
+                this.arr = [1, 2, 3];
+                this.getName = function () {
+                    console.log(this.name);
+                };
+            }
+            Animal.prototype.age = 18;
+            function Dog(name) {
+                Animal.call(this, name);
+            }
+            var Dog1 = new Dog("小万军");
+            var Dog2 = new Dog("小明");
+            Dog1.arr.push(4);
+            console.log("Dog1", Dog1); // [1,2,3,4]
+            console.log("Dog2", Dog2); // [1,2,3]
+        </script>
+    </body>
+</html>

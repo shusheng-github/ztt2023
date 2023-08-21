@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            function Parent(name) {
+                this.arr = [1, 2, 3];
+                this.name = name;
+            }
+            Parent.prototype.getName = function () {
+                return this.name;
+            };
+
+            function Children(name) {
+                // 继承属性
+                // 第二次调用Parent()
+                Parent.call(this, name);
+                this.age = 18;
+            }
+
+            // 继承方法
+            // 构建原型链
+            // 第一次调用Parent()
+            Children.prototype = new Parent();
+            Children.prototype.constructor = Children;
+
+            var person1 = new Children("小明");
+            var person2 = new Children("小花");
+
+            console.log("person1 :>> ", person1);
+            console.log("person2 :>> ", person2);
+        </script>
+    </body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // const curry = (fn, ...args) =>
+            //     // 函数的参数个数可以直接通过函数数的.length属性来访问
+            //     args.length >= fn.length // 这个判断很关键！！！
+            //         ? // 传入的参数大于等于原始函数fn的参数个数，则直接执行该函数
+            //           fn(...args)
+            //         : /**
+            //            * 传入的参数小于原始函数fn的参数个数时
+            //            * 则继续对当前函数进行柯里化，返回一个接受所有参数（当前参数和剩余参数） 的函数
+            //            */
+            //           (..._args) => curry(fn, ...args, ..._args);
+
+            // function add1(x, y, z) {
+            //     return x + y + z;
+            // }
+            // const add = curry(add1);
+            // console.log(add(1, 2, 3));
+            // console.log(add(1)(2)(3));
+            // console.log(add(1, 2)(3));
+
+            // function add(a) {
+            //     function sum(b) {
+            //         // 使用闭包
+            //         a = a + b; // 累加
+            //         return sum;
+            //     }
+            //     sum.toString = function () {
+            //         // 重写toString()方法
+            //         return a;
+            //     };
+            //     return sum; // 返回一个函数
+            // }
+
+            // console.log(add(1)(2)(3)(4));
+            const _add = (a, b, c) => {
+                return a + b + c;
+            };
+            function curry(fn, ...args) {
+                return args.length >= fn.length
+                    ? fn(...args)
+                    : (...arg) => curry(fn, ...args, ...arg);
+            }
+            const add = curry(_add);
+            const aa = add(1, 2)(3);
+            console.log("aa :>> ", aa);
+        </script>
+    </body>
+</html>
