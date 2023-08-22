@@ -9,6 +9,7 @@
  * @param {number[]} nums
  * @return {number}
  */
+// 解法1
 var longestConsecutive1 = function (nums) {
     if (nums.length <= 0) return [];
     nums.sort((a, b) => a - b); //升序排序
@@ -27,6 +28,7 @@ var longestConsecutive1 = function (nums) {
     return maxLength;
 };
 
+// 解法2
 var longestConsecutive = function (nums) {
     let num_set = new Set();
     // 对nums去重
