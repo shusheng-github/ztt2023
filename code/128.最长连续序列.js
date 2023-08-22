@@ -37,9 +37,10 @@ var longestConsecutive = function (nums) {
     let maxStreak = 0;
     // 遍历哈希表
     for (let num of num_set) {
-        // 判断是否num的前序元素num-1是否在数组中，如果在，则跳过（说明目前不是最优的结果）
+        console.log('num :>> ', num);
+        // 判断是否num的前序元素num-1是否在数组中
         // 如果不在，即从当前num开始找序列
-        if (num_set.has(num - 1) === false) {
+        if (!num_set.has(num - 1)) {
             let currNum = num;
             let currStreak = 1;
             // 继续找序列
@@ -53,10 +54,10 @@ var longestConsecutive = function (nums) {
     }
     return maxStreak;
 };
-const arr = [100, 4, 200, 1, 3, 2, 2];
+const arr = [100, 4, 200, 101, 1, 3, 102, 103];
 const arr2 = [0, 3, 7, 2, 5, 8, 4, 6, 0, 1];
 const arr3 = [9, 1, 4, 7, 3, -1, 0, 5, 8, -1, 6];
 const arr4 = [0];
-const result = longestConsecutive(arr2);
+const result = longestConsecutive(arr);
 console.log("result :>> ", result);
 // @lc code=end
