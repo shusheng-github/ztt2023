@@ -1,5 +1,5 @@
 /*
- * @lc app=leetcode.cn id=15 lang=javascript
+ * @lc app=leetcode.cn id=15 lang=leftavascript
  *
  * [15] 三数之和
  */
@@ -9,50 +9,43 @@
  * @param {number[]} nums
  * @return {number[][]}
  */
-var threeSum = function (nums) {
+
+var threeSum2 = function (nums) {
     nums = nums.sort((a, b) => {
         return a - b;
     });
-    console.log("nums :>> ", nums);
-    let arr = [];
     const length = nums.length;
-    for (var i = 0; i < length - 2; i++) {
+    const result = [];
+    for (let i = 0; i < length - 2; i++) {
+        // 如果最小值都大于0，那肯定不会有相加等于0的结果，直接退出循环
+        if (nums[i] > 0) break;
         // 左指针
-        let j = i + 1;
+        let left = i + 1;
         // 右指针
-        let k = length - 1;
-        if (i > 0 && nums[i] === nums[i - 1]) {
-            continue;
-        }
-        while (j < k) {
-            if (nums[i] + nums[j] + nums[k] > 0) {
-                k--;
-                // 若右指针元素重复，跳过
-                // while (j < k && nums[k] === nums[k + 1]) {
-                //     k--;
-                // }
-            } else if (nums[i] + nums[j] + nums[k] < 0) {
-                j++;
-                // 若左指针元素重复，跳过
-                // while (j < k && nums[j] === nums[j - 1]) {
-                //     j++;
-                // }
+        let right = length - 1;
+        // 去重处理，如果本次的i值和上次相等，说明上次循环中肯定拿到了结果，本次如果再处理就会重复
+        if (i > 0 && nums[i] === nums[i - 1]) continue;
+        while (left < right) {
+            const sum = nums[i] + nums[left] + nums[right];
+            if (sum > 0) {
+                right--;
+            } else if (sum < 0) {
+                left++;
             } else {
-                arr.push([nums[i], nums[j], nums[k]]);
-                k--;
-                j++;
-                // 若左指针元素重复，跳过
-                while (j < k && nums[j] === nums[j - 1]) {
-                    j++;
+                result.push([nums[i], nums[left], nums[right]]);
+                left++;
+                right--;
+                while (left < right && nums[left] === nums[left - 1]) {
+                    left++;
                 }
-                // 若右指针元素重复，跳过
-                while (j < k && nums[k] === nums[k + 1]) {
-                    k--;
+                while (left < right && nums[right] === nums[right + 1]) {
+                    right--;
                 }
             }
         }
     }
-    console.log("arr :>> ", arr);
+    console.log("result :>> ", result);
+    return result;
 };
-threeSum([-1, 0, 1, 2, -1, -4]);
+threeSum2([-1, 0, 1, 2, -1, -4]);
 // @lc code=end
