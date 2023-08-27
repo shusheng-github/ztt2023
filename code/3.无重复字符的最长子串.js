@@ -10,43 +10,31 @@
  * @return {number}
  */
 var lengthOfLongestSubstring = function (s) {
-    // abc bc
-    var length = s.length;
-    var i = 0;
-    var map = new Map();
-    var ans = 0;
-    for (var j = 0; j < length; j++) {
-        if (map.has(s.charAt(j))) {
-            i = Math.max(map.get(s.charAt(j)), i);
-            console.log("s.charAt(j) :>> ", s.charAt(j));
-            console.log("i :>> ", i);
+    let left = 0;
+    const map = new Map();
+    let max = 0;
+    for (let i = 0; i < s.length; i++) {
+        if (map.has(s.charAt(i))) {
+            // 移动到重复元素的下一个元素
+            // 为啥要求最大值？比如abbcag这个例子，遇到第二个a的时候，也是进了判断条件
+            // 但是a已经是上一轮的窗口，所以要取最大的left, 或者用下面的方式，直接不进循环
+            left = Math.max(left, map.get(s.charAt(i)) + 1);
         }
-        ans = Math.max(ans, j - i + 1);
-        map.set(s.charAt(j), j + 1);
-        console.log("map :>> ", map);
+        // 或者
+        // if (map.has(s.charAt(i)) && map.get(s.charAt(i)) >= left) {
+        //     left = map.get(s.charAt(i)) + 1;
+        // }
+        map.set(s.charAt(i), i);
+        // 当前元素到做窗口的距离
+        max = Math.max(max, i - left + 1);
     }
-    return ans;
-    ////////////
-    // const length = s.length;
-    // var rk = 0;
-    // var set = new Set();
-    // var max = 0;
-    // for (var i = 0; i < length; i++) {
-    //     if (i > 0) {
-    //         set.delete(s.charAt(i - 1));
-    //     }
-    //     while (rk < length && !set.has(s.charAt(rk))) {
-    //         set.add(s.charAt(rk));
-    //         rk++;
-    //     }
-    //     max = Math.max(max, rk - i);
-    // }
-    // return max;
+    console.log("max :>> ", max);
+    return max;
 };
-// 1
-// i = 0; set = [a,b,c]; rk = 3 max = 3
-// i = 1;
 
-const result = lengthOfLongestSubstring("abcbc");
-console.log("result :>> ", result);
+const result = lengthOfLongestSubstring("abbcag");
+// d 0,  v 1,
+// left: v 1
+// v 1, d 2, f3
+//
 // @lc code=end
