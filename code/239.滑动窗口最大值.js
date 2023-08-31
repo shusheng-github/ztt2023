@@ -32,5 +32,24 @@ var maxSlidingWindow = function (nums, k) {
     }
     return ans;
 };
-maxSlidingWindow([1, 3, -1, -3, 5, 3, 6, 7], 3);
+//  队列：保证队列中第一项是最大项，判断最大项是否还合法。
+var maxSlidingWindow2 = function (nums, k) {
+    let res = new Array(nums.length - k + 1).fill(0);
+    let queue = [];
+    for (let i = 0; i < nums.length; i++) {
+        while (queue.length && nums[queue[queue.length - 1]] <= nums[i]) {
+            queue.pop();
+        }
+        queue.push(i);
+        if (queue[0] <= i - k) {
+            queue.shift();
+        }
+        if (i + 1 >= k) {
+            res[i + 1 - k] = nums[queue[0]];
+        }
+    }
+    console.log('res :>> ', res);
+    return res;
+};
+maxSlidingWindow2([1, 3, -1, -3, 5, 3, 6, 7], 3);
 // @lc code=end
