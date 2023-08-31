@@ -32,7 +32,7 @@ var maxSlidingWindow = function (nums, k) {
     }
     return ans;
 };
-//  队列：保证队列中第一项是最大项，判断最大项是否还合法。
+//  队列： 保存当前窗口最大值的数组位置 保证队列中数组位置的数值按从大到小排序
 var maxSlidingWindow2 = function (nums, k) {
     let res = new Array(nums.length - k + 1).fill(0);
     let queue = [];
@@ -51,5 +51,30 @@ var maxSlidingWindow2 = function (nums, k) {
     console.log('res :>> ', res);
     return res;
 };
-maxSlidingWindow2([1, 3, -1, -3, 5, 3, 6, 7], 3);
+
+var maxSlidingWindow3 = function(nums, k) {
+    const n = nums.length;
+    const q = [];
+    for (let i = 0; i < k; i++) {
+        while (q.length && nums[i] >= nums[q[q.length - 1]]) {
+            q.pop();
+        }
+        q.push(i);
+    }
+
+    const ans = [nums[q[0]]];
+    for (let i = k; i < n; i++) {
+        while (q.length && nums[i] >= nums[q[q.length - 1]]) {
+            q.pop();
+        }
+        q.push(i);
+        while (q[0] <= i - k) {
+            q.shift();
+        }
+        ans.push(nums[q[0]]);
+    }
+    console.log('ans :>> ', ans);
+    return ans;
+};
+maxSlidingWindow3([1, 3, -1, -3, 5, 3, 6, 7], 3);
 // @lc code=end
