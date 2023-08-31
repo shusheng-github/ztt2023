@@ -9,20 +9,15 @@
  * @param {number[]} height
  * @return {number}
  */
+// 面积 = 短板 * 宽度
+// 每次移动，宽度肯定是减少的
+// 为什么每次要移动短板？因为如果要移动长版的话：下一个版有两种情况:
+// 1. 比原短板低 ==》那么此时宽度也减少了，短板更短了，面积肯定减少   
+// 2. 比原短板高 ==》那么最短板还是原来的短板不变，但是宽度减少，所以面积还是减少
+// 所以每次要移动短板，虽然宽度减少，但是短板有可能变的长些，面积才有可能变大
+// 
 // 双指针
 var maxArea = function (height) {
-    // const length = height.length;
-    // let max = 0;
-    // for (let i = 0; i < length; i++) {
-    //     let j = length - 1;
-    //     while (j > i) {
-    //         const minHeight = Math.min(height[i], height[j]);
-    //         const cur = minHeight * (j - i);
-    //         max = Math.max(max, cur);
-    //         j--;
-    //     }
-    // }
-    // return max;
     const length = height.length;
     let i = 0;
     let j = length - 1;

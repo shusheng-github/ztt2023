@@ -49,24 +49,3 @@ var moveZeroes2 = function (nums) {
 //   j i
 // 1,4,0,0,12
 //     j i
-
-// 最长连续序列
-function aa(nums) {
-    const nums_set = new Set(nums); // 去重
-    let maxLen = 0;
-    for (let i = 0; i < nums.length; i++) {
-        if (!nums_set.has(nums[i] - 1)) {
-            let item = nums[i];
-            let curLen = 1;
-            while (nums_set.has(item + 1)) {
-                curLen += 1;
-                item += 1;
-            }
-            maxLen = Math.max(maxLen, curLen);
-        }
-    }
-    return maxLen;
-}
-
-const result = aa([1, 100, 4, 3, 200, 4, 7, 6, 8, 2]);
-console.log("result :>> ", result);
