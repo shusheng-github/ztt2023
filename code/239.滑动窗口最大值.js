@@ -19,7 +19,7 @@ var maxSlidingWindow = function (nums, k) {
     let right = i + k;
     let max = nums[left];
     if (ans_max && nums[right - 1] >= ans_max) {
-      ans.push(nums[right - 1])
+      ans.pu2sh(nums[right - 1])
       ans_max = nums[right - 1]
     } else {
       while (left < right) {
@@ -58,5 +58,5 @@ var maxSlidingWindow2 = function (nums, k) {
 };
 // 视频讲解 https://www.bilibili.com/video/BV1Y94y1k7G7/?buvid=YA48B4A3FFDDAAD54BE0B5262488CB1C5FA8&is_story_h5=false&mid=09cMrOwrL2kbHC5CVRg7Yg%3D%3D&p=1&plat_id=116&share_from=ugc&share_medium=iphone&share_plat=ios&share_session_id=E7EBE465-CAB2-4C96-9646-A4C0DA58A55E&share_source=COPY&share_tag=s_i&timestamp=1692520396&unique_k=GSwktwi&up_id=183494627&vd_source=098c507ef20afacc8f1afa24a3966cec
 
-maxSlidingWindow3([1, 3, -1, -3, 5, 3, 6, 7], 3);
+maxSlidingWindow2([1, 3, -1, -3, 5, 3, 6, 7], 3);
 // @lc code=end
