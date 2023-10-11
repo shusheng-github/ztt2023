@@ -1,4 +1,10 @@
 /*
+ * @Date: 2023-08-22 14:17:33
+ * @LastEditors: zhangtiantian08 zhangtiantian08@58.com
+ * @LastEditTime: 2023-10-09 17:28:40
+ * @FilePath: /common-business-yanzhen-buy/Users/a58/work/my-project/2023/code/128.最长连续序列.js
+ */
+/*
  * @lc app=leetcode.cn id=128 lang=javascript
  *
  * [128] 最长连续序列
@@ -39,8 +45,8 @@ var longestConsecutive = function (nums) {
     let maxStreak = 0;
     // 遍历哈希表
     for (let num of num_set) {
-        console.log('num :>> ', num);
-        // 判断是否num的前序元素num-1是否在数组中
+        console.log("num :>> ", num);
+        // 判断num的前序元素num-1是否在数组中
         // 如果不在，即从当前num开始找序列
         if (!num_set.has(num - 1)) {
             let currNum = num;
