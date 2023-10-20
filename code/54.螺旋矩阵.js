@@ -1,7 +1,7 @@
 /*
  * @Date: 2023-10-19 16:41:12
  * @LastEditors: zhangtiantian08 zhangtiantian08@58.com
- * @LastEditTime: 2023-10-19 17:32:48
+ * @LastEditTime: 2023-10-20 15:02:49
  * @FilePath: /hx-personal-center/Users/a58/work/my-project/2023/code/54.螺旋矩阵.js
  */
 /*
@@ -34,15 +34,13 @@ var spiralOrder = function (matrix) {
         for (let i = bottom; i >= top; i--) ans.push(matrix[i][left]);
         if (++left > right) break;
     }
-    console.log("ans :>> ", ans);
     return ans;
 };
-//
 const result = [1, 2, 3, 4, 8, 12, 11, 10, 9, 5, 6, 7];
 const matrix = [
     [1, 2, 3, 4],
     [5, 6, 7, 8],
     [9, 10, 11, 12]
 ];
-spiralOrder(matrix);
+spiralOrder2(matrix);
 // @lc code=end
