@@ -1,4 +1,10 @@
 /*
+ * @Date: 2023-08-28 10:50:35
+ * @LastEditors: zhangtiantian08 zhangtiantian08@58.com
+ * @LastEditTime: 2023-10-11 17:17:34
+ * @FilePath: /common-business-yanzhen-buy/Users/a58/work/my-project/2023/code/3.无重复字符的最长子串.js
+ */
+/*
  * @lc app=leetcode.cn id=3 lang=javascript
  *
  * [3] 无重复字符的最长子串
@@ -31,7 +37,6 @@ var lengthOfLongestSubstring = function (s) {
     console.log("max :>> ", max);
     return max;
 };
-
 const result = lengthOfLongestSubstring("abbcag");
 // d 0,  v 1,
 // left: v 1
