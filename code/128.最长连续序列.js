@@ -1,8 +1,8 @@
 /*
  * @Date: 2023-08-22 14:17:33
  * @LastEditors: zhangtiantian08 zhangtiantian08@58.com
- * @LastEditTime: 2023-10-09 17:28:40
- * @FilePath: /common-business-yanzhen-buy/Users/a58/work/my-project/2023/code/128.最长连续序列.js
+ * @LastEditTime: 2023-10-23 17:26:04
+ * @FilePath: /hx-personal-center/Users/a58/work/my-project/2023/code/128.最长连续序列.js
  */
 /*
  * @lc app=leetcode.cn id=128 lang=javascript
@@ -22,6 +22,8 @@ var longestConsecutive1 = function (nums) {
     let currentLength = 1;
     let maxLength = 0;
     for (let i = 0; i < nums.length; i++) {
+        // 这里再判断一遍判断大于 而不是直接else 是因为有可能有重复的
+        // 为了防止重复的进入判断条件而重新计数
         if (nums[i] - 1 > nums[i - 1]) {
             currentLength = 1;
         } else if (nums[i] - 1 === nums[i - 1]) {
@@ -62,10 +64,28 @@ var longestConsecutive = function (nums) {
     }
     return maxStreak;
 };
+
+const longestConsecutive3 = function (nums) {
+    nums.sort((a, b) => {
+        return a - b;
+    });
+    let max = 1;
+    let current = 1;
+    for (let i = 0; i < nums.length; i++) {
+        if (nums[i] - 1 > nums[i - 1]) {
+            current = 1;
+        } else if (nums[i] - 1 === nums[i - 1]) {
+            current++;
+        }
+        max = Math.max(max, current);
+    }
+    return max;
+};
 const arr = [100, 4, 200, 101, 1, 3, 102, 103];
 const arr2 = [0, 3, 7, 2, 5, 8, 4, 6, 0, 1];
 const arr3 = [9, 1, 4, 7, 3, -1, 0, 5, 8, -1, 6];
 const arr4 = [0];
-const result = longestConsecutive(arr);
+const arr5 = [1, 2, 0, 1];
+const result = longestConsecutive3(arr);
 console.log("result :>> ", result);
 // @lc code=end
