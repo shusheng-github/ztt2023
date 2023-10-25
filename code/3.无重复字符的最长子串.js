@@ -1,8 +1,8 @@
 /*
  * @Date: 2023-08-28 10:50:35
  * @LastEditors: zhangtiantian08 zhangtiantian08@58.com
- * @LastEditTime: 2023-10-24 17:42:49
- * @FilePath: /hx-personal-center/Users/a58/work/my-project/2023/code/3.无重复字符的最长子串.js
+ * @LastEditTime: 2023-10-25 11:20:43
+ * @FilePath: /2023/code/3.无重复字符的最长子串.js
  */
 /*
  * @lc app=leetcode.cn id=3 lang=javascript
@@ -10,6 +10,7 @@
  * [3] 无重复字符的最长子串
  */
 
+// 思路：滑动窗口
 // @lc code=start
 /**
  * @param {string} s
@@ -38,22 +39,7 @@ var lengthOfLongestSubstring = function (s) {
     return max;
 };
 
-function lengthOfLongestSubstring2(str) {
-    let maxLen = 1;
-    let left = 0;
-    const map = new Map();
-    for (let i = 0; i < str.length; i++) {
-        if (map.has(str[i])) {
-            left = Math.max(left, map.get(str[i]) + 1);
-            console.log("map :>> ", map);
-            console.log("left :>> ", left);
-        }
-        map.set(str[i], i);
-        maxLen = Math.max(maxLen, i - left + 1);
-    }
-    return maxLen;
-}
-const result = lengthOfLongestSubstring2("abbcag");
+const result = lengthOfLongestSubstring("abbcag");
 console.log("result :>> ", result);
 // d 0,  v 1,
 // left: v 1

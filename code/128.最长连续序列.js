@@ -1,7 +1,7 @@
 /*
  * @Date: 2023-08-22 14:17:33
  * @LastEditors: zhangtiantian08 zhangtiantian08@58.com
- * @LastEditTime: 2023-10-23 17:26:04
+ * @LastEditTime: 2023-10-25 14:38:41
  * @FilePath: /hx-personal-center/Users/a58/work/my-project/2023/code/128.最长连续序列.js
  */
 /*
@@ -36,7 +36,7 @@ var longestConsecutive1 = function (nums) {
     return maxLength;
 };
 
-// 解法2
+// 解法2 最佳解法
 var longestConsecutive = function (nums) {
     let num_set = new Set();
     // 对nums去重
@@ -47,7 +47,6 @@ var longestConsecutive = function (nums) {
     let maxStreak = 0;
     // 遍历哈希表
     for (let num of num_set) {
-        console.log("num :>> ", num);
         // 判断num的前序元素num-1是否在数组中
         // 如果不在，即从当前num开始找序列
         if (!num_set.has(num - 1)) {
@@ -65,27 +64,11 @@ var longestConsecutive = function (nums) {
     return maxStreak;
 };
 
-const longestConsecutive3 = function (nums) {
-    nums.sort((a, b) => {
-        return a - b;
-    });
-    let max = 1;
-    let current = 1;
-    for (let i = 0; i < nums.length; i++) {
-        if (nums[i] - 1 > nums[i - 1]) {
-            current = 1;
-        } else if (nums[i] - 1 === nums[i - 1]) {
-            current++;
-        }
-        max = Math.max(max, current);
-    }
-    return max;
-};
 const arr = [100, 4, 200, 101, 1, 3, 102, 103];
 const arr2 = [0, 3, 7, 2, 5, 8, 4, 6, 0, 1];
 const arr3 = [9, 1, 4, 7, 3, -1, 0, 5, 8, -1, 6];
 const arr4 = [0];
 const arr5 = [1, 2, 0, 1];
-const result = longestConsecutive3(arr);
+const result = longestConsecutive(arr);
 console.log("result :>> ", result);
 // @lc code=end
