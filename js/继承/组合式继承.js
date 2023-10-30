@@ -1,23 +1,24 @@
-function Animal(type, name) {
+/*
+ * @Date: 2023-08-23 15:43:17
+ * @LastEditors: zhangtiantian08 zhangtiantian08@58.com
+ * @LastEditTime: 2023-10-30 16:54:20
+ * @FilePath: /2023/js/继承/组合式继承.js
+ */
+function Parent(type) {
     this.type = type;
-    this.name = name;
-    this.hobbies = ["eat fish", "play ball"];
+    this.age = 21;
+    this.arr = [1, 2, 3];
 }
-Animal.prototype.say = function () {
-    console.log("type is " + this.type + " name is " + this.name);
-};
-function Cat(type, name) {
-    Animal.call(this, type, name); // 构造函数继承
-    this.age = "1";
+Parent.prototype.name = "parent";
+function Child(type) {
+    Parent.call(this, type);
+    this.bb = "c";
 }
-Cat.prototype = new Animal(); // 原型链继承
-Cat.prototype.constructor = Cat;
+Child.prototype = new Parent();
+Child.prototype.constructor = Child;
 
-let smallCat = new Cat("smallCat", "Nini");
-smallCat.hobbies.push("sleep");
-console.log(smallCat); // [ 'eat fish', 'play ball', 'sleep' ]
-// smallCat.say(); // type is smallCat name is Nini
-
-let bigCat = new Cat("bigCat", "Nicole");
-console.log(bigCat); // [ 'eat fish', 'play ball' ]
-// bigCat.say(); // type is bigCat name is Nicole
+var child1 = new Child("cat");
+var child2 = new Child("dog");
+child1.arr.push(4);
+console.log("child1 :>> ", child1);
+console.log("child2 :>> ", child2);
