@@ -1,0 +1,29 @@
+<!--
+ * @Date: 2023-11-01 14:46:28
+ * @LastEditors: zhangtiantian08 zhangtiantian08@58.com
+ * @LastEditTime: 2023-11-01 14:50:10
+ * @FilePath: /2023/js/立即执行函数.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <li>测试1</li>
+        <li>测试2</li>
+        <li>测试3</li>
+    </body>
+    <script>
+        var liList = document.getElementsByTagName("li");
+        for (var i = 0; i < 3; i++) {
+            (function (ii) {
+                liList[ii].onclick = function () {
+                    console.log(ii);
+                };
+            })(i);
+        }
+    </script>
+</html>
