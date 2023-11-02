@@ -1,8 +1,8 @@
 /*
  * @Date: 2023-10-27 14:14:53
  * @LastEditors: zhangtiantian08 zhangtiantian08@58.com
- * @LastEditTime: 2023-10-31 14:14:53
- * @FilePath: /2023/code/141.环形链表.js
+ * @LastEditTime: 2023-11-02 11:14:19
+ * @FilePath: /core/Users/a58/work/my-project/2023/code/141.环形链表.js
  */
 /*
  * @lc app=leetcode.cn id=141 lang=javascript
@@ -40,4 +40,18 @@ var hasCycle = function (head) {
     }
     return true;
 };
+
+function hasCycle2(head) {
+    if (head === null) return false;
+    let fast = head;
+    let slow = head;
+    while (fast !== null && fast.next !== null) {
+        slow = slow.next;
+        fast = fast.next.next;
+        if (fast === slow) {
+            return true;
+        }
+    }
+    return false;
+}
 // @lc code=end
