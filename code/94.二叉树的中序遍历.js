@@ -1,7 +1,7 @@
 /*
  * @Date: 2023-11-03 14:25:05
- * @LastEditors: zhangtiantian08 zhangtiantian08@58.com
- * @LastEditTime: 2023-11-07 19:18:44
+ * @LastEditors: Shusheng
+ * @LastEditTime: 2023-11-07 22:30:48
  * @FilePath: /core/Users/a58/work/my-project/2023/code/94.二叉树的中序遍历.js
  */
 /*
@@ -47,7 +47,7 @@ var inorderTraversal = function (root) {
     const stack = [];
     while (root || stack.length > 0) {
         while (root) {
-            stack.push(root.val);
+            stack.push(root);
             root = root.left;
         }
         const node = stack.pop();
