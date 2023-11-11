@@ -1,4 +1,10 @@
 /*
+ * @Date: 2023-02-13 15:02:48
+ * @LastEditors: zhangtiantian08 zhangtiantian08@58.com
+ * @LastEditTime: 2023-11-10 19:12:45
+ * @FilePath: /miniprogram-58zhaopin-toc/Users/a58/work/my-project/2023/code/19.删除链表的倒数第-n-个结点.js
+ */
+/*
  * @lc app=leetcode.cn id=19 lang=javascript
  *
  * [19] 删除链表的倒数第 N 个结点
