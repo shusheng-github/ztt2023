@@ -1,7 +1,7 @@
 /*
  * @Date: 2023-07-06 19:14:35
  * @LastEditors: zhangtiantian08 zhangtiantian08@58.com
- * @LastEditTime: 2023-11-14 18:57:09
+ * @LastEditTime: 2023-11-17 16:31:38
  * @FilePath: /miniprogram-58zhaopin-toc/Users/a58/work/my-project/2023/code/5.最长回文子串.js
  */
 /*
@@ -78,6 +78,5 @@ function search(s, left, right) {
 //cbacabd
 const res = longestPalindrome3("babad");
 console.log("res :>> ", res);
-
 //
 // @lc code=end
