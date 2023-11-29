@@ -1,7 +1,7 @@
 /*
  * @Date: 2023-11-28 16:53:02
  * @LastEditors: zhangtiantian08 zhangtiantian08@58.com
- * @LastEditTime: 2023-11-29 11:03:59
+ * @LastEditTime: 2023-11-29 11:13:25
  * @FilePath: /2023/code/148.排序链表.js
  */
 /*
@@ -22,5 +22,7 @@
  * @param {ListNode} head
  * @return {ListNode}
  */
-var sortList = function (head) {};
+var sortList = function (head) {
+    
+};
 // @lc code=end
