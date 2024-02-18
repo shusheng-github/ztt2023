@@ -1,18 +1,35 @@
 <!--
  * @Date: 2023-08-22 19:14:06
- * @LastEditors: zhangtiantian08 zhangtiantian08@58.com
- * @LastEditTime: 2023-10-30 16:54:43
+ * @LastEditors: Shusheng
+ * @LastEditTime: 2024-02-17 22:44:20
  * @FilePath: /2023/js/继承/index.html
 -->
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Document</title>
-    </head>
-    <body>
-        <script src="./class继承.js"></script>
-    </body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- <script src="./class继承.js"></script> -->
+    <script>
+      // class Dog {
+      //   eat() {}
+      //   wang = () => {};
+      // }
+      // function Dog() {}
+      // Dog.prototype.eat = function () {};
+      // Dog.prototype.wang = function () {};
+
+      function Car() {}
+      Car.prototype.name = '12';
+      var car = new Car();
+      Car.prototype = {
+        name: '34',
+      };
+      console.log('car', car);
+    </script>
+  </body>
 </html>

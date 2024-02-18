@@ -1,19 +1,25 @@
 /*
  * @Date: 2023-10-24 14:26:44
- * @LastEditors: zhangtiantian08 zhangtiantian08@58.com
- * @LastEditTime: 2023-11-20 16:13:58
+ * @LastEditors: Shusheng
+ * @LastEditTime: 2024-01-17 23:08:44
  * @FilePath: /2023/code/test.js
  */
-// 对称二叉树
-function check(left, right) {
-    if (!left && !right) return true;
-    if (!left || !right) return false;
-    return (
-        left.val === right.val &&
-        check(left.left, right.right) &&
-        check(left.right, right.left)
-    );
+// 最长递增子序列
+// dp[i] 的值代表 nums 以 nums[i] 结尾的最长子序列长度。
+function fn (nums) {
+  var length = nums.length;
+  var dp = new Array(length).fill(1);
+  let max = 1;
+  for (let i = 1; i < length; i++) {
+    for (let j = 0; j < i; j++) {
+      if (nums[i] > nums[j]) {
+        dp[i] = Math.max(dp[i], dp[j] + 1)
+      }
+    }
+    max = Math.max(max, dp[i])
+  }
+  console.log('dp', dp)
+  return max
 }
-function isSymmetric(root) {
-    return check(root, root);
-}
+var res = fn([4, 10, 2])
+console.log('res', res)
