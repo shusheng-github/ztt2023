@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body></body>
+    <script>
+        // 父类
+        class Animal {
+            constructor(name) {
+                this.name = name;
+                this.hoppies = [1, 2];
+            }
+
+            sayHello() {
+                console.log("Hello, I am " + this.name);
+            }
+        }
+
+        // 子类
+        class Dog extends Animal {
+            constructor(name, breed) {
+                super(name);
+                this.breed = breed;
+            }
+
+            bark() {
+                console.log("Woof!");
+            }
+        }
+
+        // 使用示例
+        const dog1 = new Dog("Max1", "Labrador");
+        const dog2 = new Dog("Max2", "Labrador");
+        // dog.sayHello(); // 输出: Hello, I am Max
+        // dog.bark(); // 输出: Woof!
+        dog1.hoppies.push(3);
+        console.log("dog1 :>> ", dog1); // [1,2,3]
+        console.log("dog2 :>> ", dog2); // [1,2]
+    </script>
+</html>

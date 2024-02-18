@@ -1,19 +1,17 @@
 /*
- * @Date: 2023-10-24 14:26:44
+ * @Date: 2024-01-24 17:39:57
  * @LastEditors: zhangtiantian08 zhangtiantian08@58.com
- * @LastEditTime: 2023-11-20 16:13:58
- * @FilePath: /2023/code/test.js
+ * @LastEditTime: 2024-01-30 17:24:41
+ * @FilePath: /code/test.js
  */
-// 对称二叉树
-function check(left, right) {
-    if (!left && !right) return true;
-    if (!left || !right) return false;
-    return (
-        left.val === right.val &&
-        check(left.left, right.right) &&
-        check(left.right, right.left)
-    );
+function fn() {
+    for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 3; j++) {
+            if (j === 2) {
+                return;
+            }
+            console.log("i+j :>> ", i, j);
+        }
+    }
 }
-function isSymmetric(root) {
-    return check(root, root);
-}
+fn();

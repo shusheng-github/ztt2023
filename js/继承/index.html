@@ -1,7 +1,7 @@
 <!--
  * @Date: 2023-08-22 19:14:06
  * @LastEditors: zhangtiantian08 zhangtiantian08@58.com
- * @LastEditTime: 2023-10-30 16:54:43
+ * @LastEditTime: 2024-02-18 16:02:34
  * @FilePath: /2023/js/继承/index.html
 -->
 <!DOCTYPE html>
@@ -13,6 +13,23 @@
         <title>Document</title>
     </head>
     <body>
-        <script src="./class继承.js"></script>
+        <!-- <script src="./构造函数继承.js"></script> -->
+        <script>
+            function Parent(type, name) {
+                this.type = type;
+                this.name = name;
+                this.hobbies = ["eat fish", "play ball"];
+            }
+            Parent.prototype.likes = 18;
+            function Child(type, name) {
+                Parent.call(this, type, name);
+            }
+            Child.prototype = new Parent();
+            Child.prototype.constructor = Child;
+            var child1 = new Child(1, 2);
+            var child2 = new Child(3, 4);
+            console.log("child1 :>> ", child1);
+            console.log("child2 :>> ", child2);
+        </script>
     </body>
 </html>
