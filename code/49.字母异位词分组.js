@@ -1,4 +1,10 @@
 /*
+ * @Date: 2023-10-23 16:41:23
+ * @LastEditors: Shusheng
+ * @LastEditTime: 2024-02-18 21:39:10
+ * @FilePath: /m-edu-course-detail/Users/a58/work/my-project/2023/code/49.字母异位词分组.js
+ */
+/*
  * @lc app=leetcode.cn id=49 lang=javascript
  *
  * [49] 字母异位词分组
@@ -38,4 +44,3 @@ let strs = ["eat", "tea", "tan", "ate", "nat", "bat"]
 const result = groupAnagrams2(strs)
 console.log('result', result)
 // @lc code=end
-

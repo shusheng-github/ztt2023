@@ -1,8 +1,8 @@
 /*
  * @Date: 2023-08-08 16:56:02
  * @LastEditors: zhangtiantian08 zhangtiantian08@58.com
- * @LastEditTime: 2023-10-30 19:30:17
- * @FilePath: /2023/js/news實現.js
+ * @LastEditTime: 2023-11-29 15:37:00
+ * @FilePath: /2023/js/new实现.js
  */
 // 创建一个新的对象。
 // 将新的对象原型对象指向构造函数的prototype，从而继承原型上的方法。

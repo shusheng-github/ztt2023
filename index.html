@@ -1,0 +1,27 @@
+<!--
+ * @Date: 2024-01-02 11:41:51
+ * @LastEditors: zhangtiantian08 zhangtiantian08@58.com
+ * @LastEditTime: 2024-01-04 14:49:01
+ * @FilePath: /2023/index.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            function fn() {
+                // test1
+                test1 = new Array(1000).fill("xianzao");
+                // thiswindowtest2
+                this.test2 = new Array(1000).fill("xianzao");
+            }
+            fn();
+            console.log("window :>> ", window.test1);
+            console.log("window :>> ", window.test2);
+        </script>
+    </body>
+</html>
