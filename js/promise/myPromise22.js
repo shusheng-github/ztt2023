@@ -1,58 +1,54 @@
 /*
  * @Date: 2024-02-19 10:26:55
  * @LastEditors: zhangtiantian08 zhangtiantian08@58.com
- * @LastEditTime: 2024-02-20 15:03:53
- * @FilePath: /2023/js/promise/myPromise.js
+ * @LastEditTime: 2024-02-20 14:37:10
+ * @FilePath: /2023/js/promise/myPromise22.js
  */
 const PENDING = "PENDING";
 const FULFILLED = "FULFILLED";
 const REJECTED = "REJECTED";
-const resolvePromise = (promise2, x, resolve, reject) => {
-    // 这是为了防止死循环
+function resolvePromise(promise2, x, resolve, reject) {
     if (promise2 === x) {
-        return reject(
-            new Error(
-                "TypeError: Chaining cycle detected for promise #<Promise>"
-            )
-        );
+        return reject(new Error("死循环"));
     }
-    let called = false;
     if ((typeof x === "object" && x !== null) || typeof x === "function") {
-        // x 是对象
         try {
-            // x里面有then方法的话，代表是promise
-            let then = x.then;
-            // 只有是函数才有可能是then里面传的函数
+            const then = x.then;
             if (typeof then === "function") {
-                then.call(
-                    x,
-                    (y) => {
-                        if (called) return;
-                        called = true;
-                        resolvePromise(promise2, y, resolve, reject);
-                    },
-                    (r) => {
-                        if (called) return;
-                        called = true;
-                        reject(r);
-                    }
-                );
+                let called = false;
+                // 说明返回的还是promise
+                try {
+                    then.call(
+                        x,
+                        (y) => {
+                            if (called) return;
+                            called = true;
+                            resolvePromise(promise2, y, resolve, reject);
+                        },
+                        (r) => {
+                            if (called) return;
+                            called = true;
+                            reject(r);
+                        }
+                    );
+                } catch (e) {
+                    if (called) return;
+                    called = true;
+                    reject(e);
+                }
             } else {
                 resolve(x);
             }
         } catch (e) {
-            // x是正常返回的值
-            if (called) return;
-            called = true;
-            reject(e);
+            resolve(x);
         }
     } else {
-        // x是正常返回的值
         if (called) return;
         called = true;
         resolve(x);
     }
-};
+}
+
 class MyPromise {
     constructor(executor) {
         this.status = PENDING;
@@ -76,26 +72,28 @@ class MyPromise {
         };
         try {
             executor(resolve, reject);
-        } catch (err) {
-            reject(err);
+        } catch (e) {
+            reject(e);
         }
     }
     then(onFulFilled, onRejected) {
         onFulFilled =
-            typeof onFulFilled === "function" ? onFulFilled : (value) => value;
+            typeof onFulFilled === "function"
+                ? onFulFilled
+                : (value) => {
+                      value;
+                  };
         onRejected =
             typeof onRejected === "function"
                 ? onRejected
-                : (r) => {
-                      throw new Error(r);
+                : (reason) => {
+                      throw new Error(reason);
                   };
-        // 里面返回新的promise
-        let promise2 = new MyPromise((resolve, reject) => {
+        const promise2 = new MyPromise((resolve, reject) => {
             if (this.status === FULFILLED) {
                 setTimeout(() => {
                     try {
-                        // x可能是promise ，也可能是普通的值
-                        let x = onFulFilled(this.value);
+                        const x = onFulFilled(this.value);
                         resolvePromise(promise2, x, resolve, reject);
                     } catch (e) {
                         reject(e);
@@ -105,7 +103,7 @@ class MyPromise {
             if (this.status === REJECTED) {
                 setTimeout(() => {
                     try {
-                        let x = onRejected(this.reason);
+                        const x = onRejected(this.reason);
                         resolvePromise(promise2, x, resolve, reject);
                     } catch (e) {
                         reject(e);
@@ -113,11 +111,9 @@ class MyPromise {
                 }, 0);
             }
             if (this.status === PENDING) {
-                // 有可能是异步的，在then的时候还在PENDING的状态，利用发布订阅，当异步执行完成的时候再执行回调
-                // 订阅
                 this.onFulFilledCallbacks.push(() => {
                     try {
-                        let x = onFulFilled(this.value);
+                        const x = onFulFilled(this.value);
                         resolvePromise(promise2, x, resolve, reject);
                     } catch (e) {
                         reject(e);
@@ -125,7 +121,7 @@ class MyPromise {
                 });
                 this.onRejectedCallbacks.push(() => {
                     try {
-                        let x = onRejected(this.reason);
+                        const x = onRejected(this.reason);
                         resolvePromise(promise2, x, resolve, reject);
                     } catch (e) {
                         reject(e);
@@ -133,7 +129,6 @@ class MyPromise {
                 });
             }
         });
-
         return promise2;
     }
     catch(errorCallback) {
@@ -141,4 +136,14 @@ class MyPromise {
     }
 }
 
-module.exports = MyPromise;
+const promise = new MyPromise((resolve, reject) => {
+    reject(22);
+});
+
+promise
+    .then((res) => {
+        console.log("res :>> ", res);
+    })
+    .catch((error) => {
+        console.log("error :>> ", error);
+    });

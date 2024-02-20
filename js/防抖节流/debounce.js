@@ -1,7 +1,7 @@
 /*
  * @Date: 2023-08-08 16:56:02
  * @LastEditors: zhangtiantian08 zhangtiantian08@58.com
- * @LastEditTime: 2023-11-29 16:49:27
+ * @LastEditTime: 2024-02-20 15:56:31
  * @FilePath: /2023/js/防抖节流/debounce.js
  */
 function debounce(fn, wait = 50) {
@@ -30,8 +30,6 @@ function debounce1(fn, delay, immediate) {
         clearTimeout(timer);
         if (immediate) {
             const rightNow = !timer;
-            console.log("timer :>> ", timer);
-            console.log("rightNow :>> ", rightNow);
             timer = setTimeout(() => {
                 timer = null;
             }, delay);

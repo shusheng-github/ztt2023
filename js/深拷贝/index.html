@@ -1,7 +1,7 @@
 <!--
  * @Date: 2023-08-08 16:56:02
  * @LastEditors: zhangtiantian08 zhangtiantian08@58.com
- * @LastEditTime: 2024-02-01 17:51:54
+ * @LastEditTime: 2024-02-20 19:23:00
  * @FilePath: /2023/js/深拷贝/index.html
 -->
 <!DOCTYPE html>
@@ -13,35 +13,47 @@
         <title>Document</title>
     </head>
     <body></body>
-    <script src="./index2.js"></script>
+    <!-- <script src="./index2.js"></script> -->
     <script>
-        // 1.
-        // var obj = { a: 1 };
-        // obj.b = obj;
-        // const obj1 = JSON.parse(JSON.stringify(obj));
-        // console.log("obj1 :>> ", obj1);
-        // 2;
-        // var obj = { a: new Date("2024-01-31") };
-        // const obj1 = JSON.parse(JSON.stringify(obj));
-        // console.log("obj1 :>> ", obj1);
+        function isObject(target) {
+            return typeof target === "object" && target !== null;
+        }
+        function deepClone(target, map = new WeakMap()) {
+            if (!isObject(target)) return target;
+            let result;
+            if (map.has(target)) return map.get(target);
+            map.set(target, result);
 
-        // 3.
-        // var obj = {
-        //     a: new Map([["name", "张三"]]),
-        //     b: new Set([1, 2, 3]),
-        //     c: undefined,
-        //     regex: /123/,
-        //     d: new Error("Invalid"),
-        //     e: () => {
-        //         console.log(11);
-        //     }
-        // };
-        // const obj1 = JSON.parse(JSON.stringify(obj));
-        // console.log("obj1 :>> ", obj1);
-        //
-        // const obj = { a: { b: "2" } };
-        // const b = Object.assign({}, obj);
-        // obj.a.b = 3;
-        // console.log("b :>> ", b);
+            for (let key in target) {
+                if (target.hasOwnProperty(key)) {
+                    if (isObject(key)) {
+                        result[key] = deepClone(target[key], map);
+                    } else {
+                        result[key] = target[key];
+                    }
+                }
+            }
+            return result;
+        }
+        var obj = {
+            a: new Map([["name", "张三"]]),
+            b: new Set([1, 2, 3]),
+            c: undefined,
+            regex: /123/,
+            d: {
+                e: 1,
+                f: { g: 3 }
+            },
+            // d: new Error("Invalid"),
+            e: () => {
+                console.log(11);
+            }
+        };
+        const aa = deepClone(obj);
+        const bb = JSON.parse(JSON.stringify(obj));
+
+        console.log("clone :>> ", aa);
+        console.log("JSON :>> ", bb);
+        obj.d.e = 2;
     </script>
 </html>
