@@ -1,7 +1,7 @@
 /*
  * @Date: 2024-01-31 16:29:14
  * @LastEditors: zhangtiantian08 zhangtiantian08@58.com
- * @LastEditTime: 2024-02-01 17:55:53
+ * @LastEditTime: 2024-02-20 19:22:05
  * @FilePath: /2023/js/深拷贝/index2.js
  */
 const mapTag = "[object Map]";
@@ -100,30 +100,6 @@ function deepClone(target, map = new WeakMap()) {
         return result;
     }
 
-    // if (deepOtherTag.includes(type)) {
-    //     switch (type) {
-    //         case boolTag:
-    //         case stringTag:
-    //         case numberTag:
-    //         case errorTag:
-    //         case dateTag:
-    //             const Ctor = target.constructor;
-    //             return new Ctor(target);
-    //         case regexpTag:
-    //             const reFlags = /\w*$/;
-    //             const result = new target.constructor(
-    //                 target.target,
-    //                 reFlags.exec(target)
-    //             );
-    //             result.lastIndex = target.lastIndex;
-    //             return result;
-    //         case symbolTag:
-    //             return Object(Symbol.prototype.valueOf.call(target));
-    //         case functionTag:
-    //             return cloneFunction(target);
-    //     }
-    // }
-
     for (let key in target) {
         // for in 会遍历到原型对象上的属性和方法。
         // hasOwnProperty() 方法返回一个布尔值，表示对象自有属性（而不是继承来的属性）中是否具有指定的属性。
@@ -151,8 +127,13 @@ var a = {
     map: new Map([["name", "1"]]),
     fn: (params) => {
         console.log(params);
+    },
+    d: {
+        e: 1,
+        f: { g: 3 }
     }
 };
 // a.createCircle = a;
 var b = deepClone(a);
+a.d.e = 3;
 console.log("b :>> ", b);

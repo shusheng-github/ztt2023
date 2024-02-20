@@ -1,17 +1,19 @@
-const MyPromise = require('./myPromise');
+/*
+ * @Date: 2024-02-20 10:26:21
+ * @LastEditors: zhangtiantian08 zhangtiantian08@58.com
+ * @LastEditTime: 2024-02-20 14:54:16
+ * @FilePath: /2023/js/promise/index.js
+ */
+const MyPromise = require("./myPromise");
 
-let promise1 = new MyPromise((resolve, reject) => {
-  resolve('promise1')
-})
+const promise = new MyPromise((resolve, reject) => {
+    reject(22);
+});
 
-// let promise2 = promise1.then(res => {
-//   // throw new Error('2121')
-//   // return promise2
-//   // return new MyPromise((resolve, reject) => {
-//   //   resolve(new MyPromise((resolve, reject) => {
-//   //     resolve(21)
-//   //   }))
-//   // })
-// })
-promise1.then(res => { throw Error('w') }, (r) => { console.log('r', r) })
-  .aa((error => { console.log('ss', error) }))
+promise
+    .then((res) => {
+        console.log("res :>> ", res);
+    })
+    .catch((e) => {
+        console.log("error :>> ", e);
+    });

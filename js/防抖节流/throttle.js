@@ -1,5 +1,10 @@
-
-// 1 时间戳方式 
+/*
+ * @Date: 2023-11-29 17:29:40
+ * @LastEditors: zhangtiantian08 zhangtiantian08@58.com
+ * @LastEditTime: 2024-02-20 15:42:09
+ * @FilePath: /2023/js/防抖节流/throttle.js
+ */
+// 1 时间戳方式
 // const throttle = function (fn, wait = 50) {
 //   let previous = 0;
 //   return function (...args) {
@@ -18,14 +23,17 @@
 
 // 2 定时器方式
 const throttle = function (fn, wait = 50) {
-  let timer = null;
-  return function (...args) {
-    if (timer) return;
-    timer = setTimeout(() => {
-      fn.apply(this, args)
-      timer = null;
-    }, wait);
-  }
-}
+    let timer = null;
+    return function (...args) {
+        if (timer) return;
+        timer = setTimeout(() => {
+            fn.apply(this, args);
+            timer = null;
+        }, wait);
+    };
+};
 
-window.addEventListener('resize', throttle(() => console.log('fn 函数执行了'), 1000))
+window.addEventListener(
+    "resize",
+    throttle(() => console.log("fn 函数执行了"), 1000)
+);
