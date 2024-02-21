@@ -1,7 +1,7 @@
 <!--
  * @Date: 2023-08-08 16:56:02
  * @LastEditors: zhangtiantian08 zhangtiantian08@58.com
- * @LastEditTime: 2024-02-20 19:23:00
+ * @LastEditTime: 2024-02-21 11:07:34
  * @FilePath: /2023/js/深拷贝/index.html
 -->
 <!DOCTYPE html>
@@ -15,18 +15,41 @@
     <body></body>
     <!-- <script src="./index2.js"></script> -->
     <script>
+        const mapTag = "[object Map]";
+        const setTag = "[object Set]";
+        const arrayTag = "[object Array]";
+        const objectTag = "[object Object]";
+        const deepTag = [mapTag, setTag, arrayTag, objectTag];
         function isObject(target) {
             return typeof target === "object" && target !== null;
+        }
+        function getInit(target) {
+            const Ctor = target.constructor;
+            return new Ctor();
         }
         function deepClone(target, map = new WeakMap()) {
             if (!isObject(target)) return target;
             let result;
+            const type = Object.prototype.toString.call(target);
+            if (deepTag.includes(type)) {
+                result = getInit(target);
+            }
             if (map.has(target)) return map.get(target);
             map.set(target, result);
+            if (type === mapTag) {
+                target.forEach((value, key) => {
+                    result.set(key, deepClone(value, map));
+                });
+            }
+            if (type === setTag) {
+                target.forEach((value, key) => {
+                    result.add(key, deepClone(value, map));
+                });
+            }
 
             for (let key in target) {
                 if (target.hasOwnProperty(key)) {
-                    if (isObject(key)) {
+                    if (isObject(target[key])) {
                         result[key] = deepClone(target[key], map);
                     } else {
                         result[key] = target[key];
@@ -44,16 +67,14 @@
                 e: 1,
                 f: { g: 3 }
             },
-            // d: new Error("Invalid"),
             e: () => {
                 console.log(11);
             }
         };
         const aa = deepClone(obj);
-        const bb = JSON.parse(JSON.stringify(obj));
 
         console.log("clone :>> ", aa);
-        console.log("JSON :>> ", bb);
+        console.log("obj :>> ", obj);
         obj.d.e = 2;
     </script>
 </html>

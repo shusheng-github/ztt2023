@@ -1,3 +1,4 @@
+// 完整版本
 const mapTag = "[object Map]";
 const setTag = "[object Set]";
 const arrayTag = "[object Array]";
