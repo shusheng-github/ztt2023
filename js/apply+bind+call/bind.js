@@ -1,7 +1,7 @@
 /*
  * @Date: 2023-08-08 16:56:02
  * @LastEditors: zhangtiantian08 zhangtiantian08@58.com
- * @LastEditTime: 2023-10-30 17:28:10
+ * @LastEditTime: 2024-02-21 16:40:23
  * @FilePath: /2023/js/apply+bind+call/bind.js
  */
 Function.prototype.myBind = function (context) {
@@ -14,7 +14,7 @@ Function.prototype.myBind = function (context) {
         // 以上面的是 demo 为例，如果改成 `this instanceof fBound ? null : context`，实例只是一个空对象，将 null 改成 this ，实例会具有 habit 属性
         // 当作为普通函数时，this 指向 window，此时结果为 false，将绑定函数的 this 指向 context
         return self.apply(
-            this instanceof fBound ? this : context,
+            this instanceof fBound ? y : context,
             args.concat(bindArgs)
         );
     };
