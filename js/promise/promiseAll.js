@@ -1,3 +1,9 @@
+/*
+ * @Date: 2024-02-19 10:26:55
+ * @LastEditors: zhangtiantian08 zhangtiantian08@58.com
+ * @LastEditTime: 2024-02-21 15:14:37
+ * @FilePath: /2023/js/promise/promiseAll.js
+ */
 // 接受一个数组
 // 返回promise对象
 function promiseAll(arr) {

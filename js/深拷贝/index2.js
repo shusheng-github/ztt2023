@@ -1,9 +1,10 @@
 /*
  * @Date: 2024-01-31 16:29:14
  * @LastEditors: zhangtiantian08 zhangtiantian08@58.com
- * @LastEditTime: 2024-02-20 19:22:05
+ * @LastEditTime: 2024-02-21 11:08:43
  * @FilePath: /2023/js/深拷贝/index2.js
  */
+// 不包括正则版本
 const mapTag = "[object Map]";
 const setTag = "[object Set]";
 const arrayTag = "[object Array]";
@@ -81,7 +82,6 @@ function deepClone(target, map = new WeakMap()) {
     if (map.has(target)) {
         return map.get(target);
     }
-    console.log("target :>> ", target);
     map.set(target, result);
 
     // 克隆set
@@ -135,5 +135,5 @@ var a = {
 };
 // a.createCircle = a;
 var b = deepClone(a);
-a.d.e = 3;
 console.log("b :>> ", b);
+// a.d.e = 3;

@@ -1,0 +1,38 @@
+<!--
+ * @Date: 2024-02-21 15:14:19
+ * @LastEditors: zhangtiantian08 zhangtiantian08@58.com
+ * @LastEditTime: 2024-02-21 15:24:42
+ * @FilePath: /2023/js/promise/index.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            Promise.prototype.finally = function (callback) {
+                let P = this.constructor;
+                return this.then(
+                    (value) => P.resolve(callback()).then(() => value),
+                    (reason) =>
+                        P.resolve(callback()).then(() => {
+                            throw reason;
+                        })
+                );
+            };
+            // const a = new Promise((resolve, reject) => {
+            //     resolve(2121);
+            // });
+            // a.then((res) => {
+            //     console.log("res :>> ", res);
+            // }).finallyaa((res) => {
+            //     console.log("finally :>> ", res);
+            // });
+
+            // resolve 的值是 undefined
+        </script>
+    </body>
+</html>
