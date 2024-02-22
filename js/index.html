@@ -1,19 +1,74 @@
 <!--
  * @Date: 2023-08-08 16:56:02
- * @LastEditors: zhangtiantian08 zhangtiantian08@58.com
- * @LastEditTime: 2023-11-01 15:00:39
+ * @LastEditors: Shusheng
+ * @LastEditTime: 2024-02-22 23:45:22
  * @FilePath: /2023/js/index.html
 -->
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Document</title>
-    </head>
-    <body>
-        <div id="debounce">测试按钮</div>
-        <script src="./call.js"></script>
-    </body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="a">
+      <div id="b">
+        <div id="c">
+          <div id="d">d</div>
+        </div>
+      </div>
+    </div>
+    <script>
+      // 木易杨
+      function currying(fn, length) {
+        // 第一次调用获取函数 fn 参数的长度，后续调用获取 fn 剩余参数的长度
+        length = length || fn.length;
+        // currying 包裹之后返回一个新函数，接收参数为 ...args
+        return function (...args) {
+          console.log('args', args);
+          // 新函数接收的参数长度是否大于等于 fn 剩余参数需要接收的长度
+          return args.length >= length
+            ? fn.apply(this, args) // 满足要求，执行 fn 函数，传入新函数的参数
+            : currying(fn.bind(this, ...args), length - args.length); //不满足要求，递归 currying 函数，新的 fn 为 bind 返回的新函数（bind 绑定了 ...args 参数，未执行），新的 length 为 fn 剩余参数的长度
+        };
+      }
+
+      const currying2 = (fn) =>
+        (judge = (...args) =>
+          args.length >= fn.length ? fn(...args) : (...arg) => judge(...args, ...arg));
+
+      // Test
+      const fn = currying(function (a, b, c) {
+        console.log([a, b, c]);
+      });
+      // fn(1, 2, 3);
+      // fn(1)(2)(3);
+      const obj = { a: 1 };
+      const test = function (a, b, c) {
+        console.log([a, b, c]);
+      };
+      const a = test.bind(obj, 1, 2);
+      a(3);
+      // function add(a) {
+      //   function sum(b) {
+      //     // 使用闭包
+      //     a = a + b; // 累加
+      //     return sum;
+      //   }
+      //   sum.toString = function () {
+      //     // 重写toString()方法
+      //     return a;
+      //   };
+      //   return sum; // 返回一个函数
+      // }
+
+      // // add(1); // 1
+      // var a = add(1)(2)();
+      // console.log(a)
+      // add(1)(2)(3); // 6
+      // add(1)(2)(3)(4); // 10
+    </script>
+  </body>
 </html>
