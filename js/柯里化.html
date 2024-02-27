@@ -1,0 +1,107 @@
+<!--
+ * @Date: 2023-08-08 16:56:02
+ * @LastEditors: zhangtiantian08 zhangtiantian08@58.com
+ * @LastEditTime: 2024-02-23 16:12:05
+ * @FilePath: /2023/js/柯里化.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // function currying(fn, length) {
+            //     // 第一次调用获取函数 fn 参数的长度，后续调用获取 fn 剩余参数的长度
+            //     length = length || fn.length;
+            //     // currying 包裹之后返回一个新函数，接收参数为 ...args
+            //     return function (...args) {
+            //         console.log("args", args);
+            //         // 新函数接收的参数长度是否大于等于 fn 剩余参数需要接收的长度
+            //         return args.length >= length
+            //             ? fn.apply(this, args) // 满足要求，执行 fn 函数，传入新函数的参数
+            //             : currying(
+            //                   fn.bind(this, ...args),
+            //                   length - args.length
+            //               ); //不满足要求，递归 currying 函数，新的 fn 为 bind 返回的新函数（bind 绑定了 ...args 参数，未执行），新的 length 为 fn 剩余参数的长度
+            //     };
+            // }
+
+            // const currying2 = (fn) =>
+            //     (judge = (...args) =>
+            //         args.length >= fn.length
+            //             ? fn(...args)
+            //             : (...arg) => judge(...args, ...arg));
+
+            // const fn = currying(function (a, b, c) {
+            //     console.log([a, b, c]);
+            // });
+            // // fn(1, 2, 3);
+            // // fn(1)(2)(3);
+            // const obj = { a: 1 };
+            // const test = function (a, b, c) {
+            //     console.log([a, b, c]);
+            // };
+            // const a = test.bind(obj, 1, 2);
+            // a(3);
+            const curry_add = (...a) => {
+                let num = a.reduce((prev, current) => prev + current);
+                const item = (...b) => {
+                    num += b.reduce((prev, current) => prev + current);
+                    return item;
+                };
+
+                item.toString = () => {
+                    console.log("参数变化，自动触发");
+                    return num;
+                };
+
+                return item;
+            };
+            // const a = curry_add(1, 2)(2)(3, 4).toString();
+            // console.log("a :>> ", a);
+            // es5+es6
+            // function currying(fn, length) {
+            //     const length = length || fn.length;
+            //     return function (...args) {
+            //         if (length >= args.length) {
+            //             fn.apply(args);
+            //         } else {
+            //             return currying(
+            //                 fn.bind(this, ...args),
+            //                 length - args.length
+            //             );
+            //         }
+            //     };
+            // }
+            // es6
+            // function currying2(fn) {
+            //     return (judge = (...args) => {
+            //         return args.length >= fn.length
+            //             ? fn(...args)
+            //             : (...arg) => judge(...args, ...arg);
+            //     });
+            // }
+            // const fn = currying2(function (a, b, c) {
+            //     console.log([a, b, c]);
+            // });
+            // console.log("fn :>> ", fn);
+            // fn(1)(2, 3);
+
+            // function curry_add(...a) {
+            //     let num = a.reduce((prev, current) => prev + current);
+            //     const fn = (...b) => {
+            //         num += b.reduce((prev, current) => prev + current);
+            //         fn.num = num;
+            //         return fn;
+            //     };
+            //     return fn;
+            // }
+            // a = curry_add(1)(2, 3).num;
+            // console.log("a :>> ", a);
+        </script>
+    </body>
+</html>

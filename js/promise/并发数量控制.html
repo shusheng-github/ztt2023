@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            async function fn(taskList, limit) {
+                const executor = [];
+                const ret = [];
+                for (let item of taskList) {
+                    const p = Promise.resolve(item);
+                    console.log("p :>> ", p);
+                    ret.push(p);
+                    if (limit <= taskList.length) {
+                        const e = p.then(() => {
+                            executor.splice(executor.indexOf(e), 1);
+                        });
+                        executor.push(e);
+                        if (executor.length >= limit) {
+                            await Promise.race(executor);
+                        }
+                    }
+                }
+                return Promise.all(ret);
+            }
+            const taskList = [1, 5, 3, 2].map((item) => {
+                return new Promise((resolve) => {
+                    setTimeout(() => {
+                        console.log(`Task ${item} 结束`);
+                        resolve(item);
+                    }, item * 1000);
+                });
+            });
+            fn(taskList, 3).then((results) => {
+                console.log("All tasks completed:", results);
+            });
+        </script>
+    </body>
+</html>

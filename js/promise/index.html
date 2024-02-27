@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-02-21 15:14:19
  * @LastEditors: zhangtiantian08 zhangtiantian08@58.com
- * @LastEditTime: 2024-02-21 15:24:42
+ * @LastEditTime: 2024-02-22 11:38:59
  * @FilePath: /2023/js/promise/index.html
 -->
 <!DOCTYPE html>
@@ -13,26 +13,18 @@
     </head>
     <body>
         <script>
-            Promise.prototype.finally = function (callback) {
-                let P = this.constructor;
-                return this.then(
-                    (value) => P.resolve(callback()).then(() => value),
-                    (reason) =>
-                        P.resolve(callback()).then(() => {
-                            throw reason;
-                        })
-                );
-            };
-            // const a = new Promise((resolve, reject) => {
-            //     resolve(2121);
+            // const arr = [{ name: 1 }, { name: 3 }];
+            // const arr2 = [2, 3];
+            // arr.forEach((item) => {
+            //     arr2.forEach((i) => {
+            //         console.log("i :>> ", i);
+            //     });
             // });
-            // a.then((res) => {
-            //     console.log("res :>> ", res);
-            // }).finallyaa((res) => {
-            //     console.log("finally :>> ", res);
-            // });
-
-            // resolve 的值是 undefined
+            // console.log("arr :>> ", arr);
+            // for (let value of arr) {
+            //     value.name = 8;
+            // }
+            // console.log("arr :>> ", arr);
         </script>
     </body>
 </html>

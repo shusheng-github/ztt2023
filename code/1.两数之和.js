@@ -1,5 +1,5 @@
 /*
- * @LastEditTime: 2023-04-26 11:16:24
+ * @LastEditTime: 2024-02-25 21:08:56
  */
 /*
  * @lc app=leetcode.cn id=1 lang=javascript
@@ -43,4 +43,15 @@ var twoSum2 = function (nums, target) {
 
 const result = twoSum2([2, 7, 11, 15], 9);
 console.log("result :>> ", result);
+function sum(arr, target) {
+    const map = new Map();
+    for (let i = 0; i < arr.length; i++) {
+        if (map.has(target - arr[i])) {
+            return [map.get(target - arr[i]), i];
+        }
+        map.set(arr[i], i);
+    }
+    return [];
+}
+sum([2, 7, 11, 15], 9);
 // @lc code=end
