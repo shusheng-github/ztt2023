@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-02-23 14:04:09
  * @LastEditors: zhangtiantian08 zhangtiantian08@58.com
- * @LastEditTime: 2024-02-24 23:29:51
+ * @LastEditTime: 2024-03-03 11:06:17
  * @FilePath: /2023/js/index.html
 -->
 <!DOCTYPE html>
@@ -13,10 +13,39 @@
     </head>
     <body>
         <script>
-            var obj = { name: 1, age: "33" };
-            for (let value in obj) {
-                console.log("obj :>> ", obj);
+            var a = true + true;
+            console.log("true + true; :>> ", a);
+            var b = 4 * [1];
+            console.log("4 * [1] :>> ", b);
+            var c = 4 * "3";
+            console.log("4 * '3' :>> ", c);
+            //有效的括号
+            function valid(str) {
+                if (str.length % 2 !== 0) return false;
+                const map = new Map([
+                    ["}", "{"],
+                    [")", "("],
+                    ["]", "["]
+                ]);
+                console.log("map :>> ", map);
+                const stack = [];
+                for (let i = 0; i < str.length; i++) {
+                    if (map.has(str[i])) {
+                        if (
+                            !stack.length ||
+                            map.get(str[i]) !== stack[stack.length - 1]
+                        ) {
+                            return false;
+                        }
+                        stack.pop();
+                    } else {
+                        stack.push(str[i]);
+                    }
+                }
+                return !stack.length;
             }
+            var str = valid("()[]{}");
+            console.log("str :>> ", str);
         </script>
     </body>
 </html>
