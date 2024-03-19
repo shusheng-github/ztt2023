@@ -1,0 +1,1 @@
+{"version":3,"file":"main.css","mappings":";;;AAAA;EACE,yBAAyB;AAC3B","sources":["webpack://webpack/./src/main.css"],"sourcesContent":["body {\n  background: palegoldenrod;\n}\n"],"names":[],"sourceRoot":""}

@@ -1,38 +1,39 @@
 <!--
  * @Date: 2023-10-31 11:15:26
- * @LastEditors: zhangtiantian08 zhangtiantian08@58.com
- * @LastEditTime: 2023-11-20 19:22:34
+ * @LastEditors: Shusheng
+ * @LastEditTime: 2024-03-07 22:57:31
  * @FilePath: /2023/vue/vue3-demo/src/components/HelloWorld.vue
 -->
 <template>
-    <button id="text" @click="push">{{ count }}</button>
+  <button id="text" @click="push">{{ count }}</button>
+  <div>{{ a }}</div>
+  <div>{{ b }}</div>
 </template>
 
 <script>
-import { ref, nextTick } from "vue";
+import { ref, nextTick, reactive } from "vue";
 export default {
-    name: "App",
-    setup() {
-        const count = ref(0);
-        const push = () => {
-            count.value++;
-            const ids = document.getElementById("text");
-            console.log("ids :>> ", ids.innerHTML);
-            nextTick(() => {
-                const ids = document.getElementById("text");
-                console.log("ids-nextTick :>> ", ids.innerHTML);
-            });
-            // nextTick(() => {
-            //     console.log("callback after");
-            // }).then(() => {
-            //     console.log("promise after");
-            // });
-        };
+  name: "App",
+  setup () {
+    const count = ref(0);
+    const push = () => {
+      a = '66'
+      b.name='33'
+      console.log('a', a)
+    };
+    let { a, b } = reactive({
+      a: 1,
+      b: { name: '小明' }
+    })
+    a = 33
+    b.name = 'xiao'
+    console.log('a', a)
+    console.log('b', b)
 
-        // nextTick(() => {
-        //     console.log("2121 :>> ", 2121);
-        // });
-        return { count, push };
-    }
+    // nextTick(() => {
+    //     console.log("2121 :>> ", 2121);
+    // });
+    return { count, push, a, b };
+  }
 };
 </script>

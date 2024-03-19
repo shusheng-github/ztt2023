@@ -1,17 +1,20 @@
 import './main.css'
-console.log('212121')
+import { add } from './num'
+add()
 
-function test () {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      return resolve(10)
-    }, 10)
-  })
-}
+// console.log('b', b)
 
-async function fn () {
-  const result = await test()
-  console.log('result', result)
-}
+// function test () {
+//   return new Promise((resolve, reject) => {
+//     setTimeout(() => {
+//       return resolve(10)
+//     }, 10)
+//   })
+// }
 
-fn()
+// async function fn () {
+//   const result = await test()
+//   console.log('result', result)
+// }
+
+// fn()
