@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-02-23 14:04:09
  * @LastEditors: zhangtiantian08 zhangtiantian08@58.com
- * @LastEditTime: 2024-03-03 11:06:17
+ * @LastEditTime: 2024-03-27 19:21:19
  * @FilePath: /2023/js/index.html
 -->
 <!DOCTYPE html>
@@ -12,40 +12,130 @@
         <title>Document</title>
     </head>
     <body>
+        <div id="overview">2121</div>
         <script>
-            var a = true + true;
-            console.log("true + true; :>> ", a);
-            var b = 4 * [1];
-            console.log("4 * [1] :>> ", b);
-            var c = 4 * "3";
-            console.log("4 * '3' :>> ", c);
-            //有效的括号
-            function valid(str) {
-                if (str.length % 2 !== 0) return false;
-                const map = new Map([
-                    ["}", "{"],
-                    [")", "("],
-                    ["]", "["]
-                ]);
-                console.log("map :>> ", map);
-                const stack = [];
-                for (let i = 0; i < str.length; i++) {
-                    if (map.has(str[i])) {
-                        if (
-                            !stack.length ||
-                            map.get(str[i]) !== stack[stack.length - 1]
-                        ) {
-                            return false;
-                        }
-                        stack.pop();
-                    } else {
-                        stack.push(str[i]);
-                    }
+            const promiseResolve = function (promise2, x, resolve, reject) {
+                if (promise2 === x) {
+                    return reject(new Error("死循环"));
                 }
-                return !stack.length;
+                if (
+                    (typeof x === "object" && x !== null) ||
+                    typeof x === "function"
+                ) {
+                    try {
+                        const then = x.then;
+                        then.call(
+                            x,
+                            (y) => {
+                                promiseResolve(promise2, y, resolve, reject);
+                            },
+                            (r) => {
+                                promiseResolve(promise2, r, resolve, reject);
+                            }
+                        );
+                    } catch (err) {
+                        return reject(err);
+                    }
+                } else {
+                    return resolve(x);
+                }
+            };
+            const PENDING = "pending";
+            const FULFILLED = "fulfilled";
+            const REJECTED = "rejected";
+            class MyPromise {
+                constructor(executor) {
+                    this.status = PENDING;
+                    this.value = undefined;
+                    this.reason = undefined;
+                    this.fullFilledCallbacks = [];
+                    this.rejectedCallbacks = [];
+                    const resolve = (value) => {
+                        if (this.status === PENDING) {
+                            this.value = value;
+                            this.status = FULFILLED;
+                            this.fullFilledCallbacks.map((fn) =>
+                                fn(this.value)
+                            );
+                        }
+                    };
+                    const reject = (reason) => {
+                        if (this.status === PENDING) {
+                            this.reason = reason;
+                            this.status = REJECTED;
+                            this.rejectedCallbacks.map((fn) => fn(this.reason));
+                        }
+                    };
+                    try {
+                        executor(resolve, reject);
+                    } catch {}
+                }
             }
-            var str = valid("()[]{}");
-            console.log("str :>> ", str);
+
+            MyPromise.prototype.then = function (onFullFilled, onRejected) {
+                onFullFilled = onFullFilled
+                    ? onFullFilled
+                    : () => {
+                          this.value;
+                      };
+                onRejected = onRejected
+                    ? onRejected
+                    : () => {
+                          this.reason;
+                      };
+                const promise2 = new MyPromise((resolve, reject) => {
+                    if (this.status === FULFILLED) {
+                        const x = onFullFilled(this.value);
+                        console.log("x :>> ", x);
+                        setTimeout(() => {
+                            promiseResolve(promise2, x, resolve, reject);
+                        }, 0);
+                    } else if (this.status === REJECTED) {
+                        const x = onRejected(this.reason);
+                        setTimeout(() => {
+                            promiseResolve(promise2, x, resolve, reject);
+                        }, 0);
+                    } else if (this.status === PENDING) {
+                        this.fullFilledCallbacks.push(onFullFilled);
+                        this.rejectedCallbacks.push(onRejected);
+                    }
+                });
+                return promise2;
+            };
+
+            const promise = new MyPromise((resolve, reject) => {
+                resolve(111);
+            });
+            const promise2 = promise.then((res) => {
+                return new MyPromise((resolve, reject) => {
+                    resolve(222);
+                });
+            });
+
+            promise2
+                .then((res) => {
+                    return 33;
+                    console.log("res :>> ", res);
+                })
+                .then((res) => {
+                    console.log("res22 :>> ", res);
+                });
+
+            // const promise3 = Promise.resolve().then(() => {
+            //     return promise3;
+            // });
+            // promise3
+            //     .then((res) => {
+            //         console.log("res :>> ", res);
+            //     })
+            //     .catch(console.error);
+            // 执行结果如下：
+            // TypeError: Chaining cycle detected for promise #<Promise>
+            //    at <anonymous>
+            //    at process._tickCallback (internal/process/next_tick.js:188:7)
+            //    at Function.Module.runMain (module.js:667:11)
+            //    at startup (bootstrap_node.js:187:16)
+            //    at bootstrap_node.js:607:3
         </script>
     </body>
 </html>

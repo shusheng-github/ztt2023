@@ -1,7 +1,7 @@
 /*
  * @Date: 2023-09-19 10:37:26
  * @LastEditors: zhangtiantian08 zhangtiantian08@58.com
- * @LastEditTime: 2024-02-28 16:37:29
+ * @LastEditTime: 2024-03-26 11:27:36
  * @FilePath: /2023/code/300.最长递增子序列.js
  */
 /*
@@ -31,9 +31,23 @@ var lengthOfLIS = function (nums) {
     return max;
 };
 //           0, 1, 2, 3, 4, 5, 6, 7, 8
-lengthOfLIS([0, 1, 0, 3, 2, 3]);
+lengthOfLIS2([0, 6, 1, 7, 2, 3]);
+function lengthOfLIS2(nums) {
+    const length = nums.length;
+    let max = 1;
+    var dp = new Array(length).fill(1);
+    for (let i = 0; i < length; i++) {
+        for (let j = 0; j < i; j++) {
+            if (nums[j] < nums[i]) {
+                dp[i] = Math.max(dp[i], dp[j] + 1);
+            }
+        }
+        max = Math.max(max, dp[i]);
+    }
+    console.log("max :>> ", max);
+    return max;
+}
 // @lc code=end
-
 // /**
 //  * @param {number[]} nums
 //  * @return {number}

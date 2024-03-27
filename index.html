@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-01-02 11:41:51
  * @LastEditors: zhangtiantian08 zhangtiantian08@58.com
- * @LastEditTime: 2024-03-02 15:33:07
+ * @LastEditTime: 2024-03-05 14:58:32
  * @FilePath: /2023/index.html
 -->
 <!DOCTYPE html>
@@ -10,12 +10,30 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Document</title>
+        <style>
+            /* 375px */
+            html {
+                font-size: 37.5px;
+            }
+            /* less scss */
+            /* .pxToRem(@px) {
+                result: 1rem * (@px / 37.5);
+            }
+
+            .box {
+                width: .pxToRem(100) [result];
+                height: .pxToRem(100) [result];
+                background-color: orange;
+            } */
+
+            .main {
+                width: 2.66rem;
+                height: 2.66rem;
+                background: wheat;
+            }
+        </style>
     </head>
     <body>
-        <div>2121</div>
-        <script>
-            var stateObj = { foo: "bar" };
-            history.pushState(stateObj, "page 2", "bar.html");
-        </script>
+        <div class="main">测试</div>
     </body>
 </html>
