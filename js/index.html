@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-02-23 14:04:09
  * @LastEditors: zhangtiantian08 zhangtiantian08@58.com
- * @LastEditTime: 2024-03-27 19:21:19
+ * @LastEditTime: 2024-03-27 19:29:50
  * @FilePath: /2023/js/index.html
 -->
 <!DOCTYPE html>
@@ -14,8 +14,8 @@
     <body>
         <div id="overview">2121</div>
         <script>
-            const promiseResolve = function (promise2, x, resolve, reject) {
-                if (promise2 === x) {
+            const promiseResolve = function (promise, x, resolve, reject) {
+                if (promise === x) {
                     return reject(new Error("死循环"));
                 }
                 if (
@@ -27,10 +27,10 @@
                         then.call(
                             x,
                             (y) => {
-                                promiseResolve(promise2, y, resolve, reject);
+                                promiseResolve(promise, y, resolve, reject);
                             },
                             (r) => {
-                                promiseResolve(promise2, r, resolve, reject);
+                                promiseResolve(promise, r, resolve, reject);
                             }
                         );
                     } catch (err) {
@@ -103,19 +103,19 @@
                 return promise2;
             };
 
-            const promise = new MyPromise((resolve, reject) => {
+            const promise = new Promise((resolve, reject) => {
                 resolve(111);
             });
             const promise2 = promise.then((res) => {
-                return new MyPromise((resolve, reject) => {
+                return new Promise((resolve, reject) => {
                     resolve(222);
                 });
             });
 
             promise2
                 .then((res) => {
-                    return 33;
                     console.log("res :>> ", res);
+                    return 33;
                 })
                 .then((res) => {
                     console.log("res22 :>> ", res);
