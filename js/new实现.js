@@ -1,7 +1,7 @@
 /*
  * @Date: 2023-08-08 16:56:02
  * @LastEditors: zhangtiantian08 zhangtiantian08@58.com
- * @LastEditTime: 2023-11-29 15:37:00
+ * @LastEditTime: 2024-03-28 16:36:09
  * @FilePath: /2023/js/new实现.js
  */
 // 创建一个新的对象。
@@ -20,4 +20,11 @@ function myNew(Fn, ...args) {
 function Father(a, b) {
     this.a = a;
     this.b = b;
+}
+
+function myNew(fn, ...args) {
+    let obj = {};
+    obj.__proto__ = fn.prototype;
+    const result = fn.apply(obj, args);
+    return result instanceof Object ? result : obj;
 }
